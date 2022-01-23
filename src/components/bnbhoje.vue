@@ -11,6 +11,7 @@
                             <span id="cifrao" class="col text-center">QTD:</span>
                             
                             <input
+                            autocomplete="off"
                             @mouseover="mouseOver"
                             @focusin="FocusIn"
                             @focusout="FocusOut"
@@ -127,7 +128,7 @@ export default {
             document.getElementById("sombra").style.borderRadius = '1rem';
             document.getElementById("sombra2").style.backgroundColor = 'transparent';
             document.getElementById("sombra2").style.borderRadius = '1rem';
-            document.getElementById("tamanho").style.width = '25rem';
+            document.getElementById("tamanho").style.width = '35rem';
 
             if(this.quantidade == ''){
                 this.quantidade = 1
@@ -140,7 +141,7 @@ export default {
 
     computed:{
         ValorBnb: function(){
-            return (this.valorBnb * this.quantidade)
+            return (this.valorBnb * this.quantidade).toLocaleString('pt-br', {minimumFractionDigits: 2})
         },
     }
 }
