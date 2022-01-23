@@ -5,10 +5,10 @@
                 <div class="mx-auto tamanho mb-5 row justify-content-center">
                     <img id="icone" src="../storage/bnb.png" alt="">
                 </div>
-                <div id="tamanho" class="mx-auto">
-                    <div  id="sombra" class="justify-content-center">
+                <div id="tamanho" class=" row mx-auto">
+                    <div  id="sombra" class="col justify-content-center">
                         <div class="sombra row">
-                            <span id="cifrao" class="col text-center">QTD:</span>
+                            <span id="cifrao" class="col-4 text-center">QTD:</span>
                             
                             <input
                             autocomplete="off"
@@ -18,21 +18,22 @@
                             type="number"
                             v-model="quantidade"
                             id="btn-quantidade"
-                            class="col ms-4"
+                            class="col ms-4 text-center"
                             >
 
                         </div>
                     </div>
 
-                    <div class="row m-auto">
+                    <div class="m-auto col-2">
                         <h3 id="vale" class="m-auto">Vale</h3>
                     </div>
                     
                     <div id="sombra2" class="col">
                         <div  class="row justify-content-center">
-                            <span id="cifrao" class="col text-center">US$:</span>
+                            <span id="cifrao" class="col-4 text-center">US$:</span>
 
                             <input 
+                            @mouseover="mouseOver"
                             @focusin="FocusIn"
                             @focusout="FocusOut"
                             id="btn-valor" class="m-2 align-middle col m-auto" 
@@ -44,11 +45,11 @@
                 </div>
             </div>
         </div>
-        <div class="justify-content-center">
+        <div class="w-100">
             <h1>Gráfico do BNB nos últimos 30 dias</h1>
             <GChart 
                 class="mx-auto"
-                style="width: 900px; height: 500px;"
+                style="width: 20%; height: 10%;"
                 type="LineChart"
                 :data="chartData"
                 :options="chartOptions"
@@ -111,8 +112,6 @@ export default {
             document.getElementById("sombra").style.borderRadius = '1rem';
             document.getElementById("sombra2").style.backgroundColor = 'rgba(243, 247, 52, 0.267)';
             document.getElementById("sombra2").style.borderRadius = '1rem';
-
-            
         },
 
         FocusIn(){
@@ -120,7 +119,7 @@ export default {
             document.getElementById("sombra").style.borderRadius = '1rem';
             document.getElementById("sombra2").style.backgroundColor = 'rgba(243, 247, 52, 0.267)';
             document.getElementById("sombra2").style.borderRadius = '1rem';
-            document.getElementById("tamanho").style.width = '50rem';
+            document.getElementById("tamanho").style.width = '100%';
         },
 
         FocusOut(){
@@ -128,7 +127,7 @@ export default {
             document.getElementById("sombra").style.borderRadius = '1rem';
             document.getElementById("sombra2").style.backgroundColor = 'transparent';
             document.getElementById("sombra2").style.borderRadius = '1rem';
-            document.getElementById("tamanho").style.width = '35rem';
+            document.getElementById("tamanho").style.width = '80%';
 
             if(this.quantidade == ''){
                 this.quantidade = 1
@@ -174,7 +173,7 @@ export default {
     }
 
     #tamanho{
-        width: 25rem;
+        width: 80%;
         transition: all 1000ms ease;
     }
 
