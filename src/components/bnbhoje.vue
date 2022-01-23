@@ -49,7 +49,7 @@
             <h1>Gráfico do BNB nos últimos 30 dias</h1>
             <GChart 
                 class="mx-auto"
-                style="width: 20%; height: 10%;"
+                style="width: 40%"
                 type="LineChart"
                 :data="chartData"
                 :options="chartOptions"
@@ -73,11 +73,6 @@ export default {
 
             chartData: ([
                 ['Year', 'BNB'],
-                ['2014', 1000],
-                ['2015', 1170],
-                ['2016', 660],
-                ['2017', 1030],
-                ['2014', 1000],
                 // Treat first row as data as well.
             ]),
             
@@ -86,24 +81,65 @@ export default {
                 title: 'Company Performance',
                 subtitle: 'Sales, Expenses, and Profit: 2014-2017',
                 }
-            }
+            },
+            mediaarray: ([])
         }
+    },
+
+    mounted(){
+        this.priceBNB()
+        this.historyBNB()
     },
 
     components: {
         GChart
     },
 
-    mounted(){
-        this.BNB()
-    },
-
     methods:{
-        BNB(){
-            Axios.Teste()
+        priceBNB(){
+            Axios.PriceBNB()
             .then(respost =>{
                 console.log(respost)
                 this.valorBnb = respost.binancecoin.usd
+            })
+        },
+
+        historyBNB(){
+            Axios.HistoryBNB()
+            .then(respost =>{
+                var old = null;
+
+                var valores = [];
+                var teste = [];
+                var media = 0;
+                for (let i = 0; i < respost.prices.length; i++) {
+                    if(old == null){
+                        valores.push(respost.prices[i][1])
+                    }else if(old == new Date(respost.prices[i][0]).getDate() + "/" + new Date(respost.prices[i][0]).getMonth()+ "/" + new Date(respost.prices[i][0]).getFullYear()){
+                        valores.push(respost.prices[i][1])
+                    }else{
+                        for (let i = 0; i < valores.length; i++) {
+                           media = media + valores[i]
+                        }
+                        
+                        teste.push([old, media / valores.length])
+
+
+                        valores = []
+                        media = 0
+                    }
+                    
+                    old = new Date(respost.prices[i][0]).getDate() + "/" + new Date(respost.prices[i][0]).getMonth()+ "/" + new Date(respost.prices[i][0]).getFullYear()
+
+                }
+
+                for (let i = 0; i < teste.length; i++) {
+                    this.chartData.push([teste[i][0], teste[i][1]])
+                }
+
+                console.log(teste)
+
+                
             })
         },
 
