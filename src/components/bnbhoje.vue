@@ -56,6 +56,7 @@
                     <br>
                     informaçoes fornecidas pela propria plataforma da Binance
                 </p>
+                <h3></h3>
             </div>
         </div>
         <!-- <div id="cotacao" class="justify-content-center">
