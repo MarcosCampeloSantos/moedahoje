@@ -128,6 +128,7 @@ export default {
             ]),
             
             chartOptions: {
+                backgroundColor: 'rgb(236, 236, 236)',
                 chart: {
                 title: 'Company Performance',
                 subtitle: 'Sales, Expenses, and Profit: 2014-2017',
@@ -262,6 +263,7 @@ export default {
     *{
         font-family: 'JetBrains Mono';
         color: rgb(70, 70, 70);
+        background-color: rgb(236, 236, 236);
         display: flex;
     }
 
