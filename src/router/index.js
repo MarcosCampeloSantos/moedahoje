@@ -6,8 +6,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'BNB Hoje | MoedaHoje',
-    component: () => import('../views/bnb.vue'),
+    name: 'BTC Hoje | MoedaHoje',
+    component: () => import('../views/bitcoin.vue'),
   }
 ]
 

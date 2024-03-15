@@ -1,10 +1,10 @@
 <template>
-    <DracoHoje />
+    <BitcoinHoje />
 </template>
 
 <script>
 
-import DracoHoje from '../components/bnbhoje.vue'
+import BitcoinHoje from '../components/bitcoinHoje.vue'
 
 
 export default {
@@ -16,7 +16,7 @@ export default {
     },
 
     components: {
-        DracoHoje
+        BitcoinHoje
     },
 }
 </script>

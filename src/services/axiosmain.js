@@ -1,9 +1,9 @@
 import {httpsCoin} from './config.js'
 
 export default{
-    PriceBNB: async () => {
+    priceBTC: async () => {
         try {
-            const response = await httpsCoin.get('simple/price?ids=binancecoin&vs_currencies=usd',
+            const response = await httpsCoin.get('simple/price?ids=bitcoin&vs_currencies=brl',
                 {
                     headers: {
                         'accept': 'application/json',
