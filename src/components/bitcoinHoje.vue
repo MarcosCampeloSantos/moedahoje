@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex principal">
         <div class="lateral1">
-            teste
+            <!-- teste -->
         </div>
         <div class="meio w-100 d-flex flex-column">
             <div class="conversor d-flex flex-column justify-content-center">
@@ -29,43 +29,39 @@
                 </div>
             </div>
             <div class="text-start">
-                <h2 >Preço médio do BTC nos últimos 30 dias</h2>
-                <GChart 
-                    class="grafico"
-                    type="LineChart"
-                    :data="chartData"
-                    :options="chartOptions"
-                />
-                <h3>Valor do BTC agora</h3>
-                <p>
-                    O valor do BTC hoje está R${{valorBTC}}.<br>
-                    O valor do BTC aqui é atualizada para que você fique informado sobre o valor do BTC.<br>
-                    <br>
-                    O valor do BTC hoje é somente para informação.
-                </p>
-                <h3>Informaçoes sobre o BTC</h3>
-                <p>
-                    Bitcoin (BTC) é uma moeda digital criada em 2009. <br>
-                    Ela é gerada por um processo chamado “mineração” e <br>
-                    todas as transações são registradas em um banco de <br>
-                    dados online chamado “blockchain”. 
-                </p>
-                <p> O valor do Bitcoin é determinado pelo mercado. <br>
-                    Ele é conhecido por seu uso anônimo <br>
-                    e pode ser usado para uma variedade de propósitos, <br>
-                    incluindo investimentos e compras online.<br>
-                </p>
+                <div style="width: 500px;" class="mx-2">
+                    <h2 >Preço médio do BTC nos últimos 30 dias</h2>
+                    <div id="chart">
+                        <apexchart type="area" height="350" :options="chartOptions" :series="series"></apexchart>
+                    </div>
+                    <h3>Valor do BTC agora</h3>
+                    <p>Bitcoin é uma forma de dinheiro digital descentralizado, criado em 2009 por um indivíduo ou grupo de pessoas usando o pseudônimo Satoshi Nakamoto. Ele revolucionou a forma como pensamos sobre dinheiro e transações financeiras, oferecendo uma alternativa ao sistema financeiro tradicional controlado por governos e instituições financeiras.</p>
+
+                    <p>Em vez de depender de uma autoridade central, como um banco central, para emitir e regular a moeda, o Bitcoin opera em uma rede peer-to-peer, onde as transações são verificadas e registradas por uma rede de computadores distribuídos em todo o mundo. Isso significa que o Bitcoin é imune à interferência governamental e à manipulação política.</p>
+
+                    <p>Uma das características mais notáveis do Bitcoin é sua oferta limitada. Ao contrário das moedas fiduciárias, que podem ser impressas indefinidamente, o Bitcoin tem um limite máximo de 21 milhões de unidades. Isso confere ao Bitcoin uma escassez intrínseca, semelhante a metais preciosos como o ouro, o que pode potencialmente proteger seu valor contra a inflação.</p>
+
+                    <p>Além disso, o Bitcoin oferece segurança e privacidade aos seus usuários por meio de técnicas criptográficas avançadas. As transações são registradas em um livro-razão público chamado blockchain, que é imutável e transparente. Isso significa que as transações de Bitcoin são seguras e não podem ser alteradas ou censuradas.</p>
+
+                    <p>O Bitcoin também está se tornando cada vez mais aceito como forma de pagamento em todo o mundo. Desde empresas de tecnologia até varejistas e prestadores de serviços, muitos estão começando a aceitar Bitcoin como uma opção de pagamento legítima.</p>
+
+                    <p>No entanto, é importante notar que o Bitcoin ainda é uma tecnologia em evolução e enfrenta desafios, como escalabilidade e volatilidade de preços. No entanto, muitos acreditam que o Bitcoin tem o potencial de revolucionar não apenas o sistema financeiro, mas também a forma como interagimos com o dinheiro e o valor.</p>
+
+                    <p>Se você está interessado em explorar o mundo emocionante do Bitcoin, há uma abundância de recursos disponíveis para ajudá-lo a começar. De carteiras digitais a exchanges de criptomoedas, há muitas maneiras de comprar, vender e armazenar Bitcoin de forma segura e conveniente.</p>
+
+                    <p>Junte-se à revolução do dinheiro digital e descubra o que o Bitcoin pode oferecer a você!</p>
+
+                </div>
             </div>
         </div>
         <div class="lateral2">
-            teste
+            <!-- teste -->
         </div>
     </div>
 </template>
 
 <script>
 
-import { GChart } from 'vue-google-charts'
 import Axios from '../services/axiosmain'
 
 export default {
@@ -76,76 +72,80 @@ export default {
             quantidade: 1,
             hover: 'false',
 
-            chartData: ([
-                ['Year', 'BTC'],
-                // Treat first row as data as well.
-            ]),
-            
-            chartOptions: {
-                backgroundColor: 'rgb(236, 236, 236)',
-                chart: {
-                    title: 'Company Performance',
-                    subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-                }
-            },
-            mediaarray: ([]),
-            focus: false
+            series: [],
+        
+            chartOptions: {},
         }
     },
 
     mounted(){
         this.priceBTC()
-        // this.historyBTC()
     },
 
     components: {
-        GChart
     },
 
     methods:{
         priceBTC(){
+            this.historyBTC()
             Axios.priceBTC()
             .then(respost =>{
-                console.log(respost)
                 this.valorBTCoriginal = respost.bitcoin.brl
                 this.valorBTC = (this.valorBTCoriginal * this.quantidade).toLocaleString('pt-br', {minimumFractionDigits: 2})
             })
         },
 
         historyBTC(){
-            Axios.HistoryBTC()
+            Axios.historyBTC()
             .then(respost =>{
-                var old = null;
+                var date = []
+                var valor = []
+                respost.prices.forEach(element => {
+                    date.push(new Date(element[0]).getDate() + "/" + (new Date(element[0]).getMonth() + 1)+ "/" + new Date(element[0]).getFullYear())
+                    valor.push(element[1])
+                });
 
-                var valores = [];
-                var dados = [];
-                var media = 0;
-                for (let i = 0; i < respost.prices.length; i++) {
-                    if(old == null){
-                        valores.push(respost.prices[i][1])
-                    }else if(old == new Date(respost.prices[i][0]).getDate() + "/" + (new Date(respost.prices[i][0]).getMonth() + 1)+ "/" + new Date(respost.prices[i][0]).getFullYear()){
-                        valores.push(respost.prices[i][1])
-                    }else{
-                        for (let i = 0; i < valores.length; i++) {
-                           media = media + valores[i]
+                console.log(valor)
+
+                // var label = []
+                // var data = []
+                // for (let i = 0; i < dados.length; i++) {
+                //     label.push(dados[i][0])
+                //     data.push(dados[i][1])
+                // }
+                this.series = [{
+                    name: "Desktops",
+                    data: valor
+                }],
+
+                this.chartOptions = {
+                    chart: {
+                        height: 350,
+                        type: 'line',
+                        zoom: {
+                            enabled: false
                         }
-                        
-                        dados.push([old, media / valores.length])
-
-
-                        valores = []
-                        media = 0
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'straight'
+                    },
+                    title: {
+                        text: 'Product Trends by Month',
+                        align: 'left'
+                    },
+                    grid: {
+                        row: {
+                            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                            opacity: 0.5
+                        },
+                    },
+                    xaxis: {
+                        categories: date,
                     }
-                    
-                    old = new Date(respost.prices[i][0]).getDate() + "/" + (new Date(respost.prices[i][0]).getMonth() + 1)+ "/" + new Date(respost.prices[i][0]).getFullYear()
-
                 }
-
-                for (let i = 0; i < dados.length; i++) {
-                    this.chartData.push([dados[i][0], dados[i][1]])
-                }
-
-
                 
             })
         },

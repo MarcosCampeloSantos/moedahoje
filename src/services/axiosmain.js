@@ -17,9 +17,9 @@ export default{
         }
     },
 
-    HistoryBNB: async () => {
+    historyBTC: async () => {
         try {
-            const response = await httpsCoin.get('coins/binancecoin/contract/BNB/market_chart/?vs_currency=usd&days=30',
+            const response = await httpsCoin.get('coins/bitcoin/market_chart?vs_currency=brl&days=30&interval=daily&precision=2',
                 {
                     headers: {
                         'accept': 'application/json',
