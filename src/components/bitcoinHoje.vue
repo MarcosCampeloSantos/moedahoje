@@ -265,6 +265,28 @@ export default {
         .igualdade{
             width: 100%;
         }
+        .principal{
+            .meio{
+                .conversor{
+                    font-size: 30px;
+                    .dados{
+                        .container-input{
+                            min-width: 250px;
+                        }
+                        .input-val{
+                            width: 150px;
+                        }
+                    }
+
+                    .dados:focus-within{
+                        .input-val{
+                            width: 200px;
+                        }
+                    }
+                }
+            }
+        }
+        
     }
 
 </style>
