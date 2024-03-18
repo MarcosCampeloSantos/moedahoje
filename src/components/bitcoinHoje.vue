@@ -9,7 +9,7 @@
                     <img src="../storage/bitcoin.png" width="200" alt="">
                 </div>
                 <div class="dados d-flex justify-content-center flex-wrap">
-                    <span class="d-flex container-input">
+                    <span class="d-flex container-input justify-content-between">
                         <span class="simbolo mx-2">QTD</span>
                         <input 
                             class="input-val px-2 text-end" 
@@ -19,7 +19,7 @@
                         >
                     </span>
                     <span style="font-size: 15px;" class="igualdade mx-2 align-self-center">igual á</span>
-                    <span class="d-flex container-input">
+                    <span class="d-flex container-input justify-content-between">
                         <span class="simbolo mx-2">R$</span>
                         <input 
                             class="input-val px-2 text-end" 
@@ -89,7 +89,6 @@ export default {
 
     methods:{
         calcularInfos(info){
-            console.log('teste')
             if(info == 'qtd'){
                 this.valorBTC = (this.valorBTCoriginal * this.quantidade).toLocaleString('pt-br', {minimumFractionDigits: 2})
             }else if(info == 'val'){
@@ -114,8 +113,6 @@ export default {
                     date.push(new Date(element[0]).getDate() + "/" + (new Date(element[0]).getMonth() + 1)+ "/" + new Date(element[0]).getFullYear())
                     valor.push(element[1])
                 });
-
-                console.log(valor)
 
                 // var label = []
                 // var data = []
@@ -199,10 +196,14 @@ export default {
                 font-size: 50px;
                 height: 100vh;
                 .dados{
+                    .simbolo{
+                        width: 90px;
+                    }
+
                     .input-val{
                         border: none;
                         display: flex;
-                        width: 360px;
+                        width: 250px;
                         border-radius: 10px;
                         background: none;
                         transition: all 800ms ease;
@@ -211,6 +212,7 @@ export default {
                     .container-input{
                         background-color: rgb(238, 238, 209);
                         border-radius: 10px;
+                        min-width: 400px;
                     }
 
                     .igualdade{
@@ -232,7 +234,7 @@ export default {
                     }
 
                     .input-val{
-                        width: 430px;
+                        width: 350px;
                         transition: all 800ms ease;
                     }
 
@@ -241,20 +243,20 @@ export default {
                     }
                 }
 
-                .dados:focus{
-                    .container-input{
-                        background-color: rgb(197, 197, 171);
-                    }
+                // .dados:focus{
+                //     .container-input{
+                //         background-color: rgb(197, 197, 171);
+                //     }
 
-                    .input-val{
-                        width: 430px;
-                        transition: all 800ms ease;
-                    }
+                //     .input-val{
+                //         width: 430px;
+                //         transition: all 800ms ease;
+                //     }
 
-                    span{
-                        background: none;
-                    }
-                }
+                //     span{
+                //         background: none;
+                //     }
+                // }
             }
         }
     }
