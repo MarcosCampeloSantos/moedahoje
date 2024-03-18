@@ -3,17 +3,18 @@
         <div class="lateral1">
             <!-- teste -->
         </div>
-        <div class="meio w-100 d-flex flex-column">
+        <div class="meio w-100 d-flex flex-column align-items-center">
             <div class="conversor d-flex flex-column justify-content-center">
                 <div class="icone mb-4">
                     <img src="../storage/bitcoin.png" width="200" alt="">
                 </div>
-                <div class="dados d-flex justify-content-center">
+                <div class="dados d-flex justify-content-center flex-wrap">
                     <span class="d-flex container-input">
                         <span class="simbolo mx-2">QTD</span>
                         <input 
                             class="input-val px-2 text-end" 
                             v-model="quantidade"
+                            @input="calcularInfos('qtd')"
                             @focusout="FocusOut"
                         >
                     </span>
@@ -21,15 +22,16 @@
                     <span class="d-flex container-input">
                         <span class="simbolo mx-2">R$</span>
                         <input 
-                            disabled
                             class="input-val px-2 text-end" 
                             v-model="valorBTC"
+                            @focusout="FocusOut"
+                            @input="calcularInfos('val')"
                         >
                     </span>
                 </div>
             </div>
-            <div class="text-start">
-                <div style="width: 500px;" class="mx-2">
+            <div class="text">
+                <div class="mx-2 container">
                     <h2 >Preço médio do BTC nos últimos 30 dias</h2>
                     <div id="chart">
                         <apexchart type="area" height="350" :options="chartOptions" :series="series"></apexchart>
@@ -86,6 +88,14 @@ export default {
     },
 
     methods:{
+        calcularInfos(info){
+            console.log('teste')
+            if(info == 'qtd'){
+                this.valorBTC = (this.valorBTCoriginal * this.quantidade).toLocaleString('pt-br', {minimumFractionDigits: 2})
+            }else if(info == 'val'){
+                this.quantidade = (this.valorBTC / this.valorBTCoriginal).toFixed(8)
+            }
+        },
         priceBTC(){
             this.historyBTC()
             Axios.priceBTC()
@@ -154,6 +164,10 @@ export default {
             if(this.quantidade == ''){
                 this.quantidade = 1
             }
+
+            if(this.valorBTC == ''){
+                this.valorBTC = 0
+            }
         }
     },
 
@@ -162,9 +176,7 @@ export default {
     },
 
     watch:{
-        quantidade: function() {
-            this.valorBTC = (this.valorBTCoriginal * this.quantidade).toLocaleString('pt-br', {minimumFractionDigits: 2})
-        }
+        
     }
 }
 </script>
@@ -180,6 +192,9 @@ export default {
 
     .principal {
         .meio{
+            .text{
+                text-align: justify;
+            }
             .conversor{
                 font-size: 50px;
                 height: 100vh;
@@ -226,7 +241,7 @@ export default {
                     }
                 }
 
-                .dados:hover{
+                .dados:focus{
                     .container-input{
                         background-color: rgb(197, 197, 171);
                     }
@@ -241,6 +256,12 @@ export default {
                     }
                 }
             }
+        }
+    }
+
+    @media screen and (max-width: 1020px) {
+        .igualdade{
+            width: 100%;
         }
     }
 
