@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex principal">
-        <div class="lateral1">
+        <div class="lateral">
             <!-- teste -->
         </div>
         <div class="meio w-100 d-flex flex-column align-items-center">
@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="lateral2">
+        <div class="lateral">
             <!-- teste -->
         </div>
     </div>
@@ -188,6 +188,9 @@ export default {
     }
 
     .principal {
+        .lateral{
+            width: 200px;
+        }
         .meio{
             .text{
                 text-align: justify;
