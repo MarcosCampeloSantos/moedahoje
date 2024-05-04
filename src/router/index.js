@@ -8,6 +8,11 @@ const routes = [
     path: '/bitcoinhoje',
     name: 'BTC Hoje | MoedaHoje',
     component: () => import('../views/bitcoin.vue'),
+  },
+  {
+    path: '/',
+    name: 'MoedaHoje',
+    component: () => import('../views/home.vue'),
   }
 ]
 

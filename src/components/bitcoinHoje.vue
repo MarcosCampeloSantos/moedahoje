@@ -1,8 +1,5 @@
 <template>
     <div class="d-flex principal">
-        <div class="lateral">
-            <!-- teste -->
-        </div>
         <div class="meio w-100 d-flex flex-column align-items-center">
             <div class="conversor d-flex flex-column justify-content-center">
                 <div class="icone mb-4">
@@ -55,9 +52,6 @@
 
                 </div>
             </div>
-        </div>
-        <div class="lateral">
-            <!-- teste -->
         </div>
     </div>
 </template>
